@@ -8,16 +8,17 @@ use Illuminate\Http\Request;
 class ContactController extends Controller
 {
     public function index(){
-        return "Contacts page";
-    }
+        return view('contacts.index');
+    }//se separa la carpeta de la vista con un punto
     public function create(){
-        return "Create contact";
+        return  view('contacts.create');
     }
+    //Para pasar las variables se mandan como arrays
     public function show($contact, $category = null){
-        if($category){
-            return "Contact: $contact, Category: $category";
-        }else{
-            return "Contact: $contact";
-        }
+        // compact('contact') es lo mismo que ['contact' => $contact]
+       return view('contacts.show', [
+           'contact' => $contact,
+           'category' => $category
+       ]);
     }
 }

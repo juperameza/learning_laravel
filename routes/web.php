@@ -14,14 +14,15 @@ use App\Http\Controllers\ContactController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
+//Laravel 10 tiene grupos de rutas
 Route::get('/', HomeController::class);
 
-Route::get('/contacts', [ContactController::class, 'index']);
+Route::controller(ContactController::class)->group( function(){
+    Route::get('contacts',  'index');
+    Route::get('contacts/create',  'create');
+    Route::get('contacts/{contact}/{category?}', 'show');
+});
 
 //Las rutas se leen de arriba hacia abajo, por lo que si se coloca una ruta que ya existe, se sobreescribe
-Route::get('/contacts/create', [ContactController::class, 'create']);
-
-Route::get('/contacts/{contact}', [ContactController::class, 'show']);
 //se puede usar mas de un parametro en las rutas
 //Y estas pueden ser opcionales

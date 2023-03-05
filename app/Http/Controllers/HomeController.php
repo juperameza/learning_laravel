@@ -9,6 +9,6 @@ class HomeController extends Controller
 {
     //El metodo __invoke se ejecuta cuando se hace una peticion a la ruta
     public function  __invoke(){
-        return "Home page";
+        return view('home');
     }
 }
