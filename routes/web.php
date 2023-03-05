@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ContactController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,26 +15,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return "Root page";
-});
+Route::get('/', HomeController::class);
 
-Route::get('/about', function () {
-    return "About page";
-});
+Route::get('/contacts', [ContactController::class, 'index']);
 
 //Las rutas se leen de arriba hacia abajo, por lo que si se coloca una ruta que ya existe, se sobreescribe
-Route::get('/contact/create', function () {
-    return "Create contact";
-});
+Route::get('/contacts/create', [ContactController::class, 'create']);
+
+Route::get('/contacts/{contact}', [ContactController::class, 'show']);
 //se puede usar mas de un parametro en las rutas
 //Y estas pueden ser opcionales
-Route::get('/contact/{contact}/{category?}', function ($contact, $category = null) {
-   if($category){
-       return "Contact: $contact, Category: $category";
-    }else{
-        return "Contact: $contact";
-    }
-    //esto se deberia manejar en los controladores
-});
-
