@@ -23,6 +23,7 @@ class ContactFactory extends Factory
             'email' => $this->faker->unique()->safeEmail,
             'phone' => $this->faker->phoneNumber,
             'avatar' => 'https://i.pravatar.cc/150?img=1',
+            'category' => $this->faker->randomElement(['family', 'friend', 'work']),
             'description' => $this->faker->text,
         ];
     }
