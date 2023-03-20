@@ -18,9 +18,9 @@ use App\Http\Controllers\ContactController;
 Route::get('/', HomeController::class);
 
 Route::controller(ContactController::class)->group( function(){
-    Route::get('contacts',  'index');
-    Route::get('contacts/create',  'create');
-    Route::get('contacts/{contact}/{category?}', 'show');
+    Route::get('contacts',  'index')->name('contacts.index');
+    Route::get('contacts/create',  'create')->name('contacts.create');
+    Route::get('contacts/{contact}/{category?}', 'show')->name('contacts.show');
 });
 
 //Las rutas se leen de arriba hacia abajo, por lo que si se coloca una ruta que ya existe, se sobreescribe
