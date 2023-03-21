@@ -9,20 +9,45 @@ use App\Models\Contact;
 class ContactController extends Controller
 {
     public function index(){
-        $contacts = Contact::paginate();
+        $contacts = Contact::orderBy('id','desc')->paginate();
 
         return view('contacts.index', compact('contacts'));
     }//se separa la carpeta de la vista con un punto
     public function create(){
         return  view('contacts.create');
     }
+    public function store(Request $request){
+        $contact = new Contact();
+        $contact->name = $request->name;
+        $contact->email = $request->email;
+        $contact->phone = $request->phone;
+        $contact->avatar = $request->avatar;
+        $contact->category = $request->category;
+        $contact->description = $request->description;
+        $contact->save();
+        return redirect()->route('contacts.show', $contact);
+    }
+
+
     //Para pasar las variables se mandan como arrays
-    public function show($id, $category = null){
+    public function show(Contact $contact){
         // compact('contact') es lo mismo que ['contact' => $contact]
-        $contact = Contact::findOrFail($id);
        return view('contacts.show', [
-           'contact' => $contact,
-           'category' => $category
+           'contact' => $contact
        ]);
+    }
+
+    public function edit(Contact $contact){
+        return view('contacts.edit', compact('contact'));
+    }
+    public function update(Request $request, Contact $contact){
+        $contact->name = $request->name;
+        $contact->email = $request->email;
+        $contact->phone = $request->phone;
+        $contact->avatar = $request->avatar;
+        $contact->category = $request->category;
+        $contact->description = $request->description;
+        $contact->save();
+        return redirect()->route('contacts.show', $contact);
     }
 }
