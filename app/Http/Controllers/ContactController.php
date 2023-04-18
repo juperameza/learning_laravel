@@ -17,6 +17,13 @@ class ContactController extends Controller
         return  view('contacts.create');
     }
     public function store(Request $request){
+        $request -> validate([
+            'name' => 'required',
+            'email' => 'required',
+            'phone' => 'required',
+            'category' => 'required',
+            'description' => 'required',
+        ]);
         $contact = new Contact();
         $contact->name = $request->name;
         $contact->email = $request->email;
@@ -41,6 +48,13 @@ class ContactController extends Controller
         return view('contacts.edit', compact('contact'));
     }
     public function update(Request $request, Contact $contact){
+        $request -> validate([
+            'name' => 'required',
+            'email' => 'required',
+            'phone' => 'required',
+            'category' => 'required',
+            'description' => 'required',
+        ]);
         $contact->name = $request->name;
         $contact->email = $request->email;
         $contact->phone = $request->phone;
